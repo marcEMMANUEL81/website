@@ -1,0 +1,86 @@
+<?php
+
+require_once('../php/db.php');
+
+if (isset($_POST) & !empty($_POST)) {
+    $name = ($_POST['name']);
+    $surname = ($_POST['surname']);
+    $email = ($_POST['email']);
+    $password = ($_POST['password']);
+
+    $CreateSql = "SELECT * FROM `base__de__connexion` WHERE email = '$email' ";
+    $res = mysqli_query($con, $CreateSql)or die(mysqli_error($con));
+    if (mysqli_num_rows($res) == 0) {
+        $CreateSql = "INSERT INTO `base__de__connexion` (name, surname, email, password)  VALUES('$name', '$surname', '$email', '$password') ";
+        $res = mysqli_query($con, $CreateSql)or die(mysqli_error($con));
+        header("location: ./index.html");
+    } else {
+        $erreur2 = "Cet email a déjà été utilisé";
+    }
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../Styles_css/inscription.css">
+    <script src="https://kit.fontawesome.com/f3d1276610.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!--div class="modal">
+    <div class="modal__container">
+        <div class="modal__circle">
+            <i class="fa-solid fa-check"></i>
+        </div>
+        <p>votre inscription s'est passée avec succès</p>
+        <div class="modal__button__div">
+            <button id="#button1" class="modal__btn"> Modifier</button>
+            <button id="#button3" class="modal__btn">Continuer</button>
+        </div>
+    </div>
+</div-->
+    
+<div class="container">
+    <div class="part1">
+        <img src="../assets/img/insciption.jpg" alt="">
+        <h1>Bienvenue sur le réseau social dont vous avez toujours rêvé</h1>
+    </div>
+
+    <div class="part2">
+        <h1 class="title">Formulaire d'inscription</h1>
+        <form method="POST" action="">
+        <div class="modal__input">
+                <input name="name" class="form__input" placeholder=" " type="text">
+                <label class="modal__label" for="">Nom</label>
+            </div>
+            <div class="modal__input">
+                <input name="surname" class="form__input" placeholder=" " type="text">
+                <label class="modal__label" for="">Prenom</label>
+            </div>
+            <div class="modal__input">
+                <input name="email" class="form__input" placeholder=" " type="email">
+                <label class="modal__label" for="">Email</label>
+            </div>
+            <div class="modal__input">
+                <input name="password" class="form__input" placeholder=" " type="password">
+                <label class="modal__label" for="">Mot de passe</label>
+            </div>
+            <div class="modal__button">
+                <button type="submit" id="#button2" class="btn2" type="button">Valider</button>
+            </div>
+            <p class="text__link">Vous avez déjà un compte ? <a href="connexion.php">Cliquez ici !</a></p>
+        </form>
+    </div>
+
+</div>
+
+<script src="../scripts_JS/connexion.js"></script>
+
+</body>
+</html>

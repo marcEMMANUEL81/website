@@ -1,0 +1,63 @@
+<?php
+
+require_once('../php/db.php');
+
+if (isset($_POST) & !empty($_POST)) {
+    $ID = ($_POST['ID']);
+    $Password = ($_POST['Password']);
+        
+    $CreateSql = "SELECT * FROM `admin` WHERE ID = '$ID' AND Password = '$Password' ";
+    $res = mysqli_query($con, $CreateSql)or die(mysqli_error($con));
+    if (mysqli_num_rows($res) == 0) {
+        $erreur = "Identifiant ou mot de passe incorrect";
+    } else{
+        header("location: accueil.php");
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../Styles_css/connexion.css">
+    <script src="https://kit.fontawesome.com/f3d1276610.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+<div class="container">
+    <div class="part1">
+        <video autoplay muted src="../assets/img/video.mp4" alt=""></video>
+        <h1>Bienvenue sur le réseau social dont vous avez toujours rêvé</h1>
+    </div>
+
+    <div class="part2">
+        <h1 class="title">Formulaire de connexion</h1>
+        <form action="">
+            <div class="modal__input">
+                <input name="email" class="form__input" placeholder=" " type="email">
+                <label class="modal__label" for="">Email</label>
+            </div>
+            <div class="modal__input">
+                <input name="password" class="form__input" placeholder=" " type="password">
+                <label class="modal__label" for="">Mot de passe</label>
+            </div>
+            <div class="modal__button">
+                <a href="index.html">
+                    <button id="#button2" class="btn2" type="button">Valider</button>
+                </a>
+            </div>
+            <p class="text__link">Vous n'avez pas de compte ? <a href="inscription.html">Cliquez ici !</a></p>
+        </form>
+    </div>
+
+</div>
+
+<script src="../scripts_JS/connexion.js"></script>
+
+</body>
+</html>
